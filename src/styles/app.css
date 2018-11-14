@@ -1,0 +1,39 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background:#f5f5f5;
+}
+
+.Edt-page{
+	padding:15px;
+}
+
+.flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.flex-t{
+	align-items: flex-start
+}
+.flex-item{
+	flex:1
+}
+
+::-webkit-scrollbar{
+	width: 7px;
+}
+
+::-webkit-scrollbar-thumb{
+	background:rgba(0,0,0,.2);
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-track{
+	background:rgba(0,0,0,.2);
+	border-radius: 5px;
+}
+*{
+	user-select: none;
+}

@@ -1,0 +1,23 @@
+.unit-list{
+	padding:0;
+}
+.unit-list li{
+	padding:5px 0;
+	border-bottom:1px solid #dcdcdc;
+	cursor: pointer;
+	transition: all .5s;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.unit-list li:hover{
+	color:#40a9ff;
+	border-color:#40a9ff
+}
+.unit-list span{
+	margin-left: 5px;
+}
+.unit-list .unit-item-atv{
+	color:#40a9ff;
+	border-color:#40a9ff
+}

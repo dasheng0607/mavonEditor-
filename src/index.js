@@ -1,19 +1,7 @@
-/**
- * Created by zhy on 2017/4/1.
- */
-'use strict';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+// import registerServiceWorker from './registerServiceWorker';
 
-/**
- * mavonEditor
- * @author hinesboy
- */
-const mavonEditor = require('./mavon-editor.vue');
-const VueMavonEditor = {
-    markdownIt: mavonEditor.mixins[0].data().markdownIt,
-    mavonEditor: mavonEditor,
-    install: function(Vue) {
-        Vue.component('mavon-editor', mavonEditor);
-    }
-};
-
-module.exports = VueMavonEditor;
+ReactDOM.render(<App />, document.getElementById('root'));
+// registerServiceWorker();

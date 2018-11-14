@@ -1,0 +1,51 @@
+{
+  "_from": "charten-tangram@^1.0.0",
+  "_id": "charten-tangram@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-F7SPzE+RMOZ61eIYow5522t+MzA=",
+  "_location": "/charten-tangram",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "charten-tangram@^1.0.0",
+    "name": "charten-tangram",
+    "escapedName": "charten-tangram",
+    "rawSpec": "^1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/charten-tangram/-/charten-tangram-1.0.0.tgz",
+  "_shasum": "17b48fcc4f9130e67ad5e218a30e79db6b7e3330",
+  "_spec": "charten-tangram@^1.0.0",
+  "_where": "E:\\github\\tangram-eg",
+  "author": {
+    "name": "645070346@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Char-Ten/tangram/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "an easy lib for canvas render",
+  "homepage": "https://github.com/Char-Ten/tangram#readme",
+  "keywords": [
+    "canvas",
+    "2d",
+    "render"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "charten-tangram",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Char-Ten/tangram.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

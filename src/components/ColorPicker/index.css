@@ -1,0 +1,27 @@
+.form-color-picker{
+	position: relative;
+}
+.form-color-picker__label{
+	width:25px;
+	height:25px;
+	padding:3px;
+	border:1px solid #dfdfdf;
+	border-radius: 3px;
+	margin-bottom:5px;
+	background:#fff;
+	cursor: pointer;
+}
+.form-color-picker__label:active{
+	transform: scale(.8)
+}
+.form-color-picker__c{
+	width:100%;
+	height:100%;
+	border-radius: 3px;
+}
+
+.form-color-picker__ct{
+	height:260px;
+	overflow: hidden;
+	transition:all .26s;
+}
