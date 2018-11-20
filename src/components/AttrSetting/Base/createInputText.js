@@ -7,7 +7,7 @@ export default (label)=>{
 		...props
 	})=>(
 		<Form.Item label={label}>
-			<Input disabled={label==='名称'? true :false} {...props} onChange={e=>{
+			<Input  {...props} onChange={e=>{
 				onChange(name,e.target.value)
 			}}/>
 		</Form.Item>

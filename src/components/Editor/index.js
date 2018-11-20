@@ -16,8 +16,8 @@ export default class Editor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: 400,
-            height: 300,
+            width: 264,
+            height: 176,
             list:[]
         };
         this.createRender=createRender.bind(this);
@@ -87,7 +87,7 @@ export default class Editor extends React.Component {
                 <Form>
                     <Form.Item label="创建组件">
                         <Button.Group>
-                            <Button onClick={() => { this.onCreateText({ text: '品名', fontSize: 30, name: '品名' })}} disabled={this.props.btnShow.text1 ? '' : 'disabled'}>
+                            <Button onClick={() => { this.onCreateText({ text: '品名', fontSize: 28, name: '品名' })}} disabled={this.props.btnShow.text1 ? '' : 'disabled'}>
                                 <Icon type="tag" />创建品名
                             </Button>
                             <Button onClick={this.onCreateImage} disabled={this.props.btnShow.qrCode ? '' :'disabled'}>
@@ -96,12 +96,12 @@ export default class Editor extends React.Component {
                             <Button onClick={this.onCreateImage2} disabled={this.props.btnShow.barCode ? '' : 'disabled'}>
                                 <Icon type="picture" />创建条形码
                             </Button>
-                            <Button onClick={() => { this.onCreateText({ text: '￥', name: '原价' }) }} disabled={this.props.btnShow.text2 ? '' : 'disabled'}>
+                            {/* <Button onClick={() => { this.onCreateText({ text: '￥', name: '原价' }) }} disabled={this.props.btnShow.text2 ? '' : 'disabled'}>
                                 <Icon type="tag" />原价
                             </Button>
                             <Button onClick={() => { this.onCreateText({ text: '折扣价', name: '折扣价' }) }} disabled={this.props.btnShow.text3 ? '' : 'disabled'}>
                                 <Icon type="tag" />折扣价
-                            </Button>
+                            </Button> */}
                             <Button onClick={() => { this.onCreateText({ text: 'other', name: 'other' }) }}>
                                 <Icon type="tag" />其它内容
                             </Button>
@@ -109,12 +109,14 @@ export default class Editor extends React.Component {
                     </Form.Item>
                     <Form.Item label="画布大小">
                         <InputNumber
+                            disabled
                             formatter={v => `宽:${v}`}
                             value={this.state.width}
                             onChange={this.onWidthChange}
                         />
                         <Icon type="paper-clip" style={{ padding: 20 }} />
                         <InputNumber
+                            disabled
                             formatter={v => `高:${v}`}
                             value={this.state.height}
                             onChange={this.onHeightChange}

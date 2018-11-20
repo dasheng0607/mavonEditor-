@@ -7,7 +7,7 @@ export default (label)=>{
 		...props
 	})=>(
 		<Form.Item label={label}>
-			<InputNumber {...props} onChange={e=>{
+				<InputNumber disabled={(label === 'width' || label === '高度') ? true : false} {...props} onChange={e=>{
 				onChange(name,e)
 			}}/>
 		</Form.Item>
