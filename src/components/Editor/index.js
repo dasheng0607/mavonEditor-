@@ -87,7 +87,7 @@ export default class Editor extends React.Component {
                 <Form>
                     <Form.Item label="创建组件">
                         <Button.Group>
-                            <Button onClick={() => { this.onCreateText({ text: '品名', fontSize: 28, name: '品名' })}} disabled={this.props.btnShow.text1 ? '' : 'disabled'}>
+                            <Button onClick={() => { this.onCreateText({ text: '品名', fontSize: 24, name: '品名' })}} disabled={this.props.btnShow.text1 ? '' : 'disabled'}>
                                 <Icon type="tag" />创建品名
                             </Button>
                             <Button onClick={this.onCreateImage} disabled={this.props.btnShow.qrCode ? '' :'disabled'}>

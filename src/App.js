@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button } from "antd";
+import $ from 'jquery'
+import { Button, Input,Form, Row, Col, Icon  } from "antd";
 import Panel from "./components/Panel";
 import Editor from "./components/Editor";
 import View from "./components/View";
@@ -22,7 +23,9 @@ class App extends Component {
 				text1: true,
 				text2: true,
 				text3:true,
-			}
+			},
+			description:'模板描述',
+			name:'模板名称'
 		};
 		this.dealIndex = this.dealIndex.bind(this);
 	}
@@ -67,6 +70,18 @@ class App extends Component {
 								btnShow={this.state.btnShow}
 								onClickItem={this.onClickItem}
 							/>
+							<Form layout="inline">
+								<Form.Item label='模板名称'>
+									<Input placeholder="请输入模板名称" defaultValue ={this.state.name} onChange={(e) =>{
+										this.state.name = e.target.value;
+									}}/>
+								</Form.Item>
+								<Form.Item label='模板描述'>
+									<Input placeholder="请输入模板描述" defaultValue={this.state.description}  onChange={(e) => {
+										this.state.description = e.target.value;
+									}}/>
+								</Form.Item>
+							</Form>
 							<Button type="primary" onClick={this.onSubmit}>
 								提交
 							</Button>
@@ -170,8 +185,156 @@ class App extends Component {
 		list.splice(index,1);
 		this.setState({ list });
 	}
+	getCookie(name) {
+			var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+			if (arr = document.cookie.match(reg))
+
+				return unescape(arr[2]);
+			else
+				return null;
+		}
 	submit() {
 		console.log(this.state.list);
+		if (!this.state.description || !this.state.name){
+			alert("请输入模块名称以及描述");
+			return;
+		}
+		if (!this.state.list.length){
+			alert("模板内容不能为空");
+			return;
+		}
+		if (this.state.list.length > 10) {
+			alert("模板内容不能多于10个");
+			return;
+		}
+		let sendData = {
+			"screenSize": "264*176",
+			"description": this.state.description,
+			"name": this.state.name,
+			"organizationID": "", //要在接口拿
+			"info":{},
+			"type":[]
+		}
+		let num =1;
+		let isFont = false;
+		this.state.list.forEach((ele) =>{
+			console.log(ele);
+			if (ele.type === 'text') {
+				if ([12, 16, 24].indexOf(ele.fontSize) <0) {
+					isFont = true;
+				}
+				let tar = num === 10 ?  num : '0' + num;
+				num++;
+				sendData.info[tar] = {
+					"Y": -ele.y,
+					"colour": 0,
+					"description": ele.name,
+					"name": ele.name,
+					"fontTyep": "M",
+					"size": ele.fontSize,
+					"width": Math.ceil(ele.w),
+					"x": ele.x - 264
+				}
+			}
+		})
+		console.log(sendData)
+		if (isFont){
+			alert("字体大小只有12,16,24三个规格请确认");
+			return;
+		}
+		return;
+		let int;
+		let sendData1 = {
+			"screenSize": "264*176",
+			"description": "Sring",
+			"name": "string",
+			"organizationID": "string",
+			"info": {
+				"01": {
+					"Y": int,
+					"colour": int,
+					"description": "",
+					"fontTyep": "S",
+					"size": int,
+					"width": int,
+					"x": int
+
+        		},
+				"02": {
+					"Y": int,
+					"colour": int,
+					"description": "",
+					"fontTyep": "S",
+					"size": int,
+					"width": int,
+					"x": int
+
+        		},
+				"03": {
+					"Y": int,
+					"colour": int,
+					"description": "",
+					"fontTyep": "S",
+					"size": int,
+					"width": int,
+					"x": int
+
+        		},
+				"AA": {
+					"Y": int,
+					"colour": int,
+					"description": "",
+					"fontTyep": "S",
+					"size": int,
+					"width": int,
+					"x": int
+
+        		},
+				"BB": {
+					"Y": int,
+					"colour": int,
+					"description": "",
+					"fontTyep": "S",
+					"size": int,
+					"width": int,
+					"x": int
+				},
+			},
+ 			"type": []
+			}
+		// 处理数据
+		$.ajax({
+			url: "/price_tag_url/api/organizations",/*url写异域的请求地址*/
+			type: "GET",
+			data: {
+				limit: 10,
+				offset: 0,
+			},
+			beforeSend:  (xhr) =>{
+				xhr.setRequestHeader('grpc-metadata-authorization', this.getCookie("jwt"));//设置消息头  
+			},
+			success:  (data) =>{
+				//保存获取到的id，调用方法，根据id获取应用 organizationID
+				let id = data.result[0].id;
+				$.ajax({
+					url: "/api/pricetag/template",/*url写异域的请求地址*/
+					type: "post",
+					data: {
+						limit: 10,
+						offset: 0,
+					},
+					beforeSend: (xhr) => {
+						xhr.setRequestHeader('grpc-metadata-authorization', this.getCookie("jwt"));//设置消息头  
+					},
+					success: (data) => {
+						//保存获取到的id，调用方法，根据id获取应用 organizationID
+						let id = data.result[0].id
+
+					}
+				});
+			}
+		});
 		var a = this.state.list.map(item => {
 			const {
 				type,
