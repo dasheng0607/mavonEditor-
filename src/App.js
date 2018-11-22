@@ -213,13 +213,18 @@ class App extends Component {
 			"description": this.state.description,
 			"name": this.state.name,
 			"organizationID": "", //要在接口拿
-			"info":{},
+			"info":{
+			},
 			"type":[]
 		}
 		let num =1;
+		let tarB;
 		let isFont = false;
+		let isY = false;
 		this.state.list.forEach((ele) =>{
-			console.log(ele);
+			if (ele.y % 8 != 0){
+				isY = true;
+			}
 			if (ele.type === 'text') {
 				if ([12, 16, 24].indexOf(ele.fontSize) <0) {
 					isFont = true;
@@ -227,83 +232,51 @@ class App extends Component {
 				let tar = num === 10 ?  num : '0' + num;
 				num++;
 				sendData.info[tar] = {
-					"Y": -ele.y,
+					"y": ele.y,
 					"colour": 0,
-					"description": ele.name,
+					"description": ele.description,
 					"name": ele.name,
 					"fontTyep": "M",
 					"size": ele.fontSize,
 					"width": Math.ceil(ele.w),
 					"x": ele.x - 264
 				}
+			} else if (ele.type === 'image2') {
+				sendData.info.AA = {
+					"y": ele.y,
+					"colour": 0,
+					"description": ele.name,
+					"fontTyep": "M",
+					"size": ele.h,
+					"width": ele.w,
+					"x": 264 - ele.x
+				}
+			} else if (ele.type === 'image') {
+				tarB ={
+					"y": ele.y,
+					"colour": 0,
+					"description": ele.name,
+					"fontTyep": "M",
+					"size": ele.h,
+					"width": ele.w,
+					"x": 264 - ele.x
+				}
 			}
 		})
-		console.log(sendData)
+		if (tarB){
+			sendData.info.BB = tarB;
+		}
+		for (const key in sendData.info) {
+			sendData.type.push(key)
+		}
+		if (isY){
+			alert("Y坐标必须为8的倍数，请确认");
+			return;
+		}
 		if (isFont){
 			alert("字体大小只有12,16,24三个规格请确认");
 			return;
 		}
-		return;
-		let int;
-		let sendData1 = {
-			"screenSize": "264*176",
-			"description": "Sring",
-			"name": "string",
-			"organizationID": "string",
-			"info": {
-				"01": {
-					"Y": int,
-					"colour": int,
-					"description": "",
-					"fontTyep": "S",
-					"size": int,
-					"width": int,
-					"x": int
-
-        		},
-				"02": {
-					"Y": int,
-					"colour": int,
-					"description": "",
-					"fontTyep": "S",
-					"size": int,
-					"width": int,
-					"x": int
-
-        		},
-				"03": {
-					"Y": int,
-					"colour": int,
-					"description": "",
-					"fontTyep": "S",
-					"size": int,
-					"width": int,
-					"x": int
-
-        		},
-				"AA": {
-					"Y": int,
-					"colour": int,
-					"description": "",
-					"fontTyep": "S",
-					"size": int,
-					"width": int,
-					"x": int
-
-        		},
-				"BB": {
-					"Y": int,
-					"colour": int,
-					"description": "",
-					"fontTyep": "S",
-					"size": int,
-					"width": int,
-					"x": int
-				},
-			},
- 			"type": []
-			}
-		// 处理数据
 		$.ajax({
 			url: "/price_tag_url/api/organizations",/*url写异域的请求地址*/
 			type: "GET",
@@ -317,20 +290,17 @@ class App extends Component {
 			success:  (data) =>{
 				//保存获取到的id，调用方法，根据id获取应用 organizationID
 				let id = data.result[0].id;
+				sendData.organizationID =id;
 				$.ajax({
-					url: "/api/pricetag/template",/*url写异域的请求地址*/
+					url: "/price_tag_url/api/pricetag/template",/*url写异域的请求地址*/
 					type: "post",
-					data: {
-						limit: 10,
-						offset: 0,
-					},
+					data: JSON.stringify(sendData),
 					beforeSend: (xhr) => {
 						xhr.setRequestHeader('grpc-metadata-authorization', this.getCookie("jwt"));//设置消息头  
 					},
 					success: (data) => {
-						//保存获取到的id，调用方法，根据id获取应用 organizationID
-						let id = data.result[0].id
-
+						alert('添加成功');
+						window.location.reload()
 					}
 				});
 			}
