@@ -239,13 +239,14 @@ class App extends Component {
 					"fontTyep": "M",
 					"size": ele.fontSize,
 					"width": Math.ceil(ele.w),
-					"x": ele.x - 264
+					"x": 264 - ele.x 
 				}
 			} else if (ele.type === 'image2') {
 				sendData.info.AA = {
 					"y": ele.y,
 					"colour": 0,
 					"description": ele.name,
+					"name": ele.name,
 					"fontTyep": "M",
 					"size": ele.h,
 					"width": ele.w,
@@ -256,6 +257,7 @@ class App extends Component {
 					"y": ele.y,
 					"colour": 0,
 					"description": ele.name,
+					"name": ele.name,
 					"fontTyep": "M",
 					"size": ele.h,
 					"width": ele.w,
