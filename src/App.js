@@ -271,10 +271,10 @@ class App extends Component {
 		for (const key in sendData.info) {
 			sendData.type.push(key)
 		}
-		if (isY){
-			alert("Y坐标必须为8的倍数，请确认");
-			return;
-		}
+		// if (isY){
+		// 	alert("Y坐标必须为8的倍数，请确认");
+		// 	return;
+		// }
 		if (isFont){
 			alert("字体大小只有12,16,24三个规格请确认");
 			return;
