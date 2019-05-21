@@ -116,36 +116,41 @@ export default class Editor extends React.Component {
                 success:  (data) =>{
                     console.log(data);
                     if(!data.info) return;
-                    let tarData = data;
-                    this.props.onchangdesc('name',tarData.name)
-                    this.props.onchangdesc('description',tarData.description)
-                    if(tarData.info.BB){
-                        let BB =tarData.info.BB
-                        this.onCreateImage({x:264-BB.x,y:BB.y})
-                    }
-                    if(tarData.info.AA){
-                        let AA =tarData.info.AA
-                        this.onCreateImage2({x:264-AA.x,y:AA.y})
-                    }
-                    
-                    for (const key in tarData.info) {
-                        if(key != 'AA' && key != 'BB') {
-                            if(key == '01') {
-                                this.onCreateText(createText({ text: tarData.info[key].description, fontSize: tarData.info[key].size, name: tarData.info[key].name,x:264-tarData.info[key].x,y:tarData.info[key].y,color: tarData.info[key].colour == 0 ? '#000' : tarData.info[key].colour == 1 ? 'red' : '#FFD700'} || {}))
-                            } else {
-                                this.onCreateText({ text: tarData.info[key].description, name: tarData.info[key].name ,x:264-tarData.info[key].x,y:tarData.info[key].y,color: tarData.info[key].colour == 0 ? '#000' : tarData.info[key].colour == 1 ? 'red' : '#FFD700'})
-                            }
-                        }
-                    }
-                    let tarBox = tarData.screenSize.split('*');   
-                    setTimeout(() =>{
-                        this.onWidthChange(tarBox[0] *1)
-                        this.onHeightChange(tarBox[1] *1)
-                    })
+                    this.delLookData(data)
                 }
             });
+            // let tarData = {"id":"64","name":"测试数据名称","description":"测试数据模板","organizationID":"1","createdAt":"2019-05-21 11:38:22","updatedAt":"2019-05-21 11:38:22","info":{"01":{"x":99,"y":7,"width":48,"colour":1,"description":"测试","size":24,"fontType":"","name":"大名称"},"02":{"x":250,"y":128,"width":32,"colour":2,"description":"黄色","size":16,"fontType":"","name":"标题1"},"03":{"x":103,"y":128,"width":32,"colour":1,"description":"红色","size":16,"fontType":"","name":"标题二"},"04":{"x":-61,"y":127,"width":32,"colour":0,"description":"默认","size":16,"fontType":"","name":"标题三"},"AA":{"x":-9,"y":265,"width":104,"colour":0,"description":"条形码","size":25,"fontType":"","name":"条形码"},"BB":{"x":253,"y":238,"width":52,"colour":0,"description":"二维码","size":52,"fontType":"","name":"二维码"}},"type":["01","AA","02","03","04","BB"],"screenSize":"400*300"}
+            // this.delLookData(tarData)
         }
     };
+    delLookData(tarData){
+        this.props.onchangdesc('name',tarData.name)
+        this.props.onchangdesc('description',tarData.description)
+        if(tarData.info.BB){
+            let BB =tarData.info.BB
+            this.onCreateImage({x:264-BB.x,y:BB.y})
+        }
+        if(tarData.info.AA){
+            let AA =tarData.info.AA
+            this.onCreateImage2({x:264-AA.x,y:AA.y})
+        }
+        
+        for (const key in tarData.info) {
+            if(key != 'AA' && key != 'BB') {
+                if(key == '01') {
+                    this.onCreateText(createText({ text: tarData.info[key].description, fontSize: tarData.info[key].size, name: tarData.info[key].name,x:264-tarData.info[key].x,y:tarData.info[key].y,color: tarData.info[key].colour == 0 ? '#000' : tarData.info[key].colour == 1 ? 'red' : '#FFD700'} || {}));
+                    this.props.onclosebtn('text1',false);
+                } else {
+                    this.onCreateText({ text: tarData.info[key].description, name: tarData.info[key].name ,x:264-tarData.info[key].x,y:tarData.info[key].y,color: tarData.info[key].colour == 0 ? '#000' : tarData.info[key].colour == 1 ? 'red' : '#FFD700'})
+                }
+            }
+        }
+        let tarBox = tarData.screenSize.split('*');   
+        setTimeout(() =>{
+            this.onWidthChange(tarBox[0] *1)
+            this.onHeightChange(tarBox[1] *1)
+        })
+    }
     render() {
         return (
             <div className="editor">

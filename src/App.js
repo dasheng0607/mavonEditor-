@@ -45,6 +45,11 @@ class App extends Component {
 	onchangdesc = (name, value) => {
 		this.setState({ [name]:value });
 	}
+	closebtn = (name, value) => {
+		this.setState({
+			btnShow: Object.assign(this.state.btnShow, { [name]: false })
+		});
+	}
 	onUpdateEdt = () => this.updateList();
 	onEdtHasFocus = target => this.updateFocusIndexByEdt(target);
 	onSubmit = () => this.submit();
@@ -77,6 +82,7 @@ class App extends Component {
 								btnShow={this.state.btnShow}
 								onClickItem={this.onClickItem}
 								onchangdesc = {this.onchangdesc}
+								onclosebtn={this.closebtn}
 							/>
 							<Form layout="inline">
 								<Form.Item label='模板名称'>
