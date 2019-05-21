@@ -18,8 +18,8 @@ export default class Editor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: 264,
-            height: 176,
+            width: this.props.width || 264,
+            height: this.props.height || 176 ,
             list:[]
         };
         this.createRender=createRender.bind(this);
@@ -35,12 +35,14 @@ export default class Editor extends React.Component {
         if (width > 0) {
             renderer&&renderer.setSize(width,this.state.height)
             this.setState({ width });
+            this.props.onchangdesc('width',width);
         }
     };
     onHeightChange = height => {
         if (height > 0) {
             renderer&&renderer.setSize(this.state.width,height)
             this.setState({ height });
+            this.props.onchangdesc('height',height);
         }
     };
     handleChange = value => {
@@ -142,7 +144,6 @@ export default class Editor extends React.Component {
                     })
                 }
             });
-            // let tarData = {"id":"53","name":"省赛挑战杯测试模板","description":"模板描述","organizationID":"1","createdAt":"2019-03-23 17:09:51","updatedAt":"2019-03-23 17:09:51","info":{"01":{"x":256,"y":8,"width":96,"colour":0,"description":"进口橘子","size":24,"fontType":"","name":"品名"},"02":{"x":256,"y":40,"width":112,"colour":1,"description":"产地：广东广州","size":16,"fontType":"","name":"产地"},"03":{"x":256,"y":64,"width":89,"colour":0,"description":"重量：500G","size":16,"fontType":"","name":"重量"},"04":{"x":152,"y":64,"width":144,"colour":0,"description":"会员价：2.99","size":24,"fontType":"","name":"会员价"},"05":{"x":128,"y":32,"width":96,"colour":2,"description":"￥：2.99","size":24,"fontType":"","name":"￥"},"06":{"x":256,"y":88,"width":80,"colour":2,"description":"包装：散装","size":16,"fontType":"","name":"包装"},"AA":{"x":256,"y":128,"width":104,"colour":0,"description":"条形码","size":25,"fontType":"","name":"条形码"},"BB":{"x":110,"y":104,"width":52,"colour":0,"description":"二维码","size":52,"fontType":"","name":"二维码"}},"type":["01","AA","02","03","04","05","06","BB"],"screenSize":"400*300"};
         }
     };
     render() {

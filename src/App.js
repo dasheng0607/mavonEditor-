@@ -25,7 +25,9 @@ class App extends Component {
 				text3:true,
 			},
 			description:'模板描述',
-			name:'模板名称'
+			name:'模板名称',
+			width: 264,
+      height: 176,
 		};
 		this.dealIndex = this.dealIndex.bind(this);
 	}
@@ -63,6 +65,8 @@ class App extends Component {
 						<Panel title="模块">
 							<Editor
 								list={this.state.list}
+								width={this.state.width}
+								height={this.state.height} 
 								index={this.state.focusIndex}
 								onCreateText={this.onCreateText}
 								onCreateImage={this.onCreateImage}
@@ -76,12 +80,12 @@ class App extends Component {
 							/>
 							<Form layout="inline">
 								<Form.Item label='模板名称'>
-									<Input placeholder="请输入模板名称" value ={this.state.name} onChange={(e) =>{
+									<Input placeholder="请输入模板名称" defaultValue ={this.state.name} onChange={(e) =>{
 										this.state.name = e.target.value;
 									}}/>
 								</Form.Item>
 								<Form.Item label='模板描述'>
-									<Input placeholder="请输入模板描述" value={this.state.description}  onChange={(e) => {
+									<Input placeholder="请输入模板描述" defaultValue={this.state.description}  onChange={(e) => {
 										this.state.description = e.target.value;
 									}}/>
 								</Form.Item>
@@ -227,7 +231,7 @@ class App extends Component {
 			return;
 		}
 		let sendData = {
-			"screenSize": "264*176",
+			"screenSize": `${this.state.width}*${this.state.height}`,
 			"description": this.state.description,
 			"name": this.state.name,
 			"organizationID": "", //要在接口拿
@@ -252,7 +256,7 @@ class App extends Component {
 				sendData.info[tar] = {
 					"y": ele.y,
 					"colour": ele.color === "#000" ? 0 : ele.color === "red" ? 1 : 2,
-					"description": ele.description,
+					"description": ele.description || ele.text,
 					"name": ele.name,
 					"fontTyep": "M",
 					"size": ele.fontSize,
@@ -262,7 +266,7 @@ class App extends Component {
 			} else if (ele.type === 'image2') {
 				sendData.info.AA = {
 					"y": ele.y,
-					"colour": ele.color === "#000" ? 0 : ele.color === "red" ? 1 : 2,
+					"colour": 0,
 					"description": ele.name,
 					"name": ele.name,
 					"fontTyep": "M",
@@ -273,7 +277,7 @@ class App extends Component {
 			} else if (ele.type === 'image') {
 				tarB ={
 					"y": ele.y,
-					"colour": ele.color === "#000" ? 0 : ele.color === "red" ? 1 : 2,
+					"colour": 0,
 					"description": ele.name,
 					"name": ele.name,
 					"fontTyep": "M",
@@ -297,6 +301,7 @@ class App extends Component {
 			alert("字体大小只有12,16,24三个规格请确认");
 			return;
 		}
+		console.log('sendData',sendData)
 		$.ajax({
 			url: "/price_tag_url/api/organizations",/*url写异域的请求地址*/
 			type: "GET",
@@ -309,6 +314,7 @@ class App extends Component {
 			},
 			success:  (data) =>{
 				//保存获取到的id，调用方法，根据id获取应用 organizationID
+				if(!data.result) return;
 				let id = data.result[0].id;
 				sendData.organizationID =id;
 				$.ajax({
