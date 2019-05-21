@@ -86,13 +86,13 @@ class App extends Component {
 							/>
 							<Form layout="inline">
 								<Form.Item label='模板名称'>
-									<Input placeholder="请输入模板名称" defaultValue ={this.state.name} onChange={(e) =>{
-										this.state.name = e.target.value;
+									<Input placeholder="请输入模板名称" value ={this.state.name} onChange={(e) =>{
+										this.setState({ name:e.target.value });
 									}}/>
 								</Form.Item>
 								<Form.Item label='模板描述'>
-									<Input placeholder="请输入模板描述" defaultValue={this.state.description}  onChange={(e) => {
-										this.state.description = e.target.value;
+									<Input placeholder="请输入模板描述" value={this.state.description}  onChange={(e) => {
+										this.setState({ description:e.target.value });
 									}}/>
 								</Form.Item>
 							</Form>
