@@ -14,9 +14,10 @@ export default (label)=>{
 				value={value}
 				onChange={color=>onChange(name,color)}
 			/> */}
-				<Select defaultValue="#000" style={{ width: 120 }} onChange={color => onChange(name, color)}>
+				<Select value={value} style={{ width: 120 }}  onChange={color => onChange(name, color)}>
 					<Option value="#000">默认</Option>
 					<Option value="red">红色</Option>
+					<Option value="#FFD700">黄色</Option>
 				</Select>
 		</Form.Item>
 	)

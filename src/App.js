@@ -251,7 +251,7 @@ class App extends Component {
 				num++;
 				sendData.info[tar] = {
 					"y": ele.y,
-					"colour": 0,
+					"colour": ele.color === "#000" ? 0 : ele.color === "red" ? 1 : 2,
 					"description": ele.description,
 					"name": ele.name,
 					"fontTyep": "M",
@@ -262,7 +262,7 @@ class App extends Component {
 			} else if (ele.type === 'image2') {
 				sendData.info.AA = {
 					"y": ele.y,
-					"colour": 0,
+					"colour": ele.color === "#000" ? 0 : ele.color === "red" ? 1 : 2,
 					"description": ele.name,
 					"name": ele.name,
 					"fontTyep": "M",
@@ -273,7 +273,7 @@ class App extends Component {
 			} else if (ele.type === 'image') {
 				tarB ={
 					"y": ele.y,
-					"colour": 0,
+					"colour": ele.color === "#000" ? 0 : ele.color === "red" ? 1 : 2,
 					"description": ele.name,
 					"name": ele.name,
 					"fontTyep": "M",

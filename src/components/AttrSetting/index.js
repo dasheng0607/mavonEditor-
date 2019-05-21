@@ -15,7 +15,7 @@ export default class AttrSetting extends React.Component {
 			"text",
 			"fontSize",
 			// "fontFamily",
-			// "color",
+			"color",
 			// "select",
 			// "background",
 			// "src"
