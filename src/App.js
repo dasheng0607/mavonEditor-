@@ -40,6 +40,9 @@ class App extends Component {
 		});
 		this.setState({ list });
 	};
+	onchangdesc = (name, value) => {
+		this.setState({ [name]:value });
+	}
 	onUpdateEdt = () => this.updateList();
 	onEdtHasFocus = target => this.updateFocusIndexByEdt(target);
 	onSubmit = () => this.submit();
@@ -69,15 +72,16 @@ class App extends Component {
 								onFocus={this.onEdtHasFocus}
 								btnShow={this.state.btnShow}
 								onClickItem={this.onClickItem}
+								onchangdesc = {this.onchangdesc}
 							/>
 							<Form layout="inline">
 								<Form.Item label='模板名称'>
-									<Input placeholder="请输入模板名称" defaultValue ={this.state.name} onChange={(e) =>{
+									<Input placeholder="请输入模板名称" value ={this.state.name} onChange={(e) =>{
 										this.state.name = e.target.value;
 									}}/>
 								</Form.Item>
 								<Form.Item label='模板描述'>
-									<Input placeholder="请输入模板描述" defaultValue={this.state.description}  onChange={(e) => {
+									<Input placeholder="请输入模板描述" value={this.state.description}  onChange={(e) => {
 										this.state.description = e.target.value;
 									}}/>
 								</Form.Item>
@@ -194,7 +198,21 @@ class App extends Component {
 			else
 				return null;
 		}
+	getQueryVariable(variable)
+	{
+			var query = window.location.search.substring(1);
+			var vars = query.split("&");
+			for (var i=0;i<vars.length;i++) {
+							var pair = vars[i].split("=");
+							if(pair[0] == variable){return pair[1];}
+			}
+			return(false);
+	}
 	submit() {
+		if(this.getQueryVariable('templeID')){
+			alert("查看模式不能修改模板");
+			return;
+		}
 		console.log(this.state.list);
 		if (!this.state.description || !this.state.name){
 			alert("请输入模块名称以及描述");
